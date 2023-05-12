@@ -1,7 +1,4 @@
 <html>
-<head>
-	<title>Git instructies</title>
-</head>
 <body>
 	<h1>Git instructies voor het netjes onderhouden van alle branches:</h1>
 	<p>Check op veranderingen binnen je eigen branch:</p>
