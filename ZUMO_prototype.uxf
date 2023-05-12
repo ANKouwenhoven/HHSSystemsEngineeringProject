@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1">
-  <zoom_level>10</zoom_level>
+  <zoom_level>9</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>90</y>
-      <w>210</w>
-      <h>200</h>
+      <x>27</x>
+      <y>27</y>
+      <w>189</w>
+      <h>198</h>
     </coordinates>
     <panel_attributes>ZumoController
 --
@@ -24,12 +24,21 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
-      <y>90</y>
-      <w>210</w>
-      <h>70</h>
+      <x>279</x>
+      <y>18</y>
+      <w>270</w>
+      <h>171</h>
     </coordinates>
     <panel_attributes>MotorController
+--
+-maxDrivingSpeed: int
+-minDrivingSpeed: int
+--
++moveForward 
++moveBackward
++turnLeft
++turnRight
++stop
 --
 </panel_attributes>
     <additional_attributes/>
@@ -37,10 +46,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
-      <y>220</y>
-      <w>210</w>
-      <h>70</h>
+      <x>315</x>
+      <y>261</y>
+      <w>189</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>NavigationController
 --</panel_attributes>
@@ -49,10 +58,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
-      <y>370</y>
-      <w>210</w>
-      <h>70</h>
+      <x>315</x>
+      <y>387</y>
+      <w>189</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>GyroController
 --</panel_attributes>
@@ -61,10 +70,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>680</x>
-      <y>220</y>
-      <w>210</w>
-      <h>70</h>
+      <x>639</x>
+      <y>162</y>
+      <w>189</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>LineSensorController
 --</panel_attributes>
@@ -73,10 +82,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>680</x>
-      <y>370</y>
-      <w>210</w>
-      <h>70</h>
+      <x>639</x>
+      <y>297</y>
+      <w>189</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>CompassController
 --</panel_attributes>
@@ -85,100 +94,107 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>680</x>
-      <y>90</y>
-      <w>210</w>
-      <h>70</h>
+      <x>630</x>
+      <y>18</y>
+      <w>297</w>
+      <h>135</h>
     </coordinates>
     <panel_attributes>ZumoMotor
 --
-</panel_attributes>
+-speed: int
+-direction: int
+--
++setSpeeds(speed: int): void
++setDirection(dir: int): void
++setLeftSpeed(Speed: int)
++setRightSpeed(Speed: int)
++setSpeeds(leftSpeed: int, rightSpeed: int): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>200</x>
-      <y>110</y>
-      <w>140</w>
-      <h>30</h>
+      <x>207</x>
+      <y>63</y>
+      <w>90</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>200</x>
-      <y>250</y>
-      <w>140</w>
-      <h>30</h>
+      <x>207</x>
+      <y>189</y>
+      <w>126</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>120.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>410</x>
-      <y>280</y>
-      <w>30</w>
-      <h>110</h>
+      <x>396</x>
+      <y>315</y>
+      <w>27</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>495</x>
+      <y>315</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>495</x>
+      <y>189</y>
+      <w>162</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;120.0;160.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>63</y>
+      <w>108</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>396</x>
+      <y>180</y>
+      <w>27</w>
+      <h>99</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>520</x>
-      <y>280</y>
-      <w>180</w>
-      <h>150</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;160.0;130.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>520</x>
-      <y>250</y>
-      <w>180</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>520</x>
-      <y>110</y>
-      <w>180</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>160.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>410</x>
-      <y>150</y>
-      <w>30</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1000</x>
-      <y>220</y>
-      <w>210</w>
-      <h>70</h>
+      <x>927</x>
+      <y>162</y>
+      <w>189</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>ZumoLineSensor
 --</panel_attributes>
@@ -187,10 +203,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>880</x>
-      <y>250</y>
-      <w>140</w>
-      <h>30</h>
+      <x>819</x>
+      <y>189</y>
+      <w>126</w>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
@@ -198,10 +214,10 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
-      <y>500</y>
-      <w>210</w>
-      <h>70</h>
+      <x>315</x>
+      <y>513</y>
+      <w>189</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>ZumoGyro
 --</panel_attributes>
@@ -210,21 +226,21 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>410</x>
-      <y>430</y>
-      <w>30</w>
+      <x>396</x>
+      <y>441</y>
+      <w>27</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>680</x>
-      <y>500</y>
-      <w>210</w>
-      <h>70</h>
+      <x>639</x>
+      <y>414</y>
+      <w>189</w>
+      <h>63</h>
     </coordinates>
     <panel_attributes>CompassController
 --</panel_attributes>
@@ -233,10 +249,10 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
-      <y>430</y>
-      <w>30</w>
-      <h>90</h>
+      <x>720</x>
+      <y>351</y>
+      <w>27</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
