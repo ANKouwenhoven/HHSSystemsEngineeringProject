@@ -36,8 +36,9 @@
 	</blockquote>
 	<p>Als de commit door git geaccepteerd wordt kan je het pushen met:</p>
 	<blockquote>
-		<p>- git push De eerste keer dat je naar een nieuwe branch pusht, moet je de local koppelen aan de remote branch.</p>
+		<p>- git push </p>
 	</blockquote>
+	<p>De eerste keer dat je naar een nieuwe branch pusht, moet je de local koppelen aan de remote branch.</p>
 	<p>Dit gaat als volgt (zonder &lt;&lt; &gt;&gt;):</p>
 	<blockquote>
 		<p>- git push --set-upstream origin &lt;&lt;branchnaam&gt;&gt;</p>
