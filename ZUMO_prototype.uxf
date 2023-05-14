@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>27</x>
-      <y>27</y>
+      <x>18</x>
+      <y>99</y>
       <w>189</w>
       <h>198</h>
     </coordinates>
@@ -24,8 +24,8 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>279</x>
-      <y>18</y>
+      <x>270</x>
+      <y>90</y>
       <w>270</w>
       <h>171</h>
     </coordinates>
@@ -34,11 +34,11 @@ Responsibilities
 -maxDrivingSpeed: int
 -minDrivingSpeed: int
 --
-+moveForward 
-+moveBackward
-+turnLeft
-+turnRight
-+stop
++moveForward(): void
++moveBackward(): void
++turnLeft(): void
++turnRight(): void
++stop(): void
 --
 </panel_attributes>
     <additional_attributes/>
@@ -46,56 +46,71 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>315</x>
-      <y>261</y>
+      <x>306</x>
+      <y>333</y>
       <w>189</w>
-      <h>63</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>NavigationController
---</panel_attributes>
+--
+lineFinder: LineSensorController
+gyro: GyroController
+--
+navigate(): void
+
+
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>315</x>
-      <y>387</y>
+      <x>306</x>
+      <y>459</y>
       <w>189</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>GyroController
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>639</x>
-      <y>162</y>
-      <w>189</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>LineSensorController
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>639</x>
-      <y>297</y>
-      <w>189</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>CompassController
---</panel_attributes>
+--
+gyro: Zumo32U4Gyro
+--
+measureForces(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>630</x>
-      <y>18</y>
+      <y>252</y>
+      <w>189</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>LineSensorController
+--
+lookForLine(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>360</y>
+      <w>189</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>CompassController
+--
+compass: Zumo32U4Compass
+angle: int
+--
+findAngle(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>621</x>
+      <y>90</y>
       <w>297</w>
       <h>135</h>
     </coordinates>
@@ -114,8 +129,8 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>207</x>
-      <y>63</y>
+      <x>198</x>
+      <y>135</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -125,8 +140,8 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>207</x>
-      <y>189</y>
+      <x>198</x>
+      <y>261</y>
       <w>126</w>
       <h>126</h>
     </coordinates>
@@ -136,41 +151,41 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>396</x>
-      <y>315</y>
+      <x>387</x>
+      <y>414</y>
       <w>27</w>
-      <h>90</h>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>495</x>
-      <y>315</y>
+      <x>486</x>
+      <y>387</y>
       <w>162</w>
-      <h>36</h>
+      <h>27</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;160.0;20.0</additional_attributes>
+    <additional_attributes>10.0;10.0;160.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>495</x>
-      <y>189</y>
+      <x>486</x>
+      <y>279</y>
       <w>162</w>
-      <h>126</h>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;120.0;160.0;10.0</additional_attributes>
+    <additional_attributes>10.0;100.0;160.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>540</x>
-      <y>63</y>
+      <x>531</x>
+      <y>135</y>
       <w>108</w>
       <h>27</h>
     </coordinates>
@@ -180,8 +195,8 @@ Responsibilities
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>396</x>
-      <y>180</y>
+      <x>387</x>
+      <y>252</y>
       <w>27</w>
       <h>99</h>
     </coordinates>
@@ -191,20 +206,24 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>927</x>
-      <y>162</y>
+      <x>918</x>
+      <y>252</y>
       <w>189</w>
-      <h>63</h>
+      <h>81</h>
     </coordinates>
     <panel_attributes>ZumoLineSensor
---</panel_attributes>
+--
+lineSensors: int[]
+--
+initFiveSensors(): void
+read(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>819</x>
-      <y>189</y>
+      <x>810</x>
+      <y>279</y>
       <w>126</w>
       <h>27</h>
     </coordinates>
@@ -214,47 +233,48 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>315</x>
-      <y>513</y>
+      <x>306</x>
+      <y>576</y>
       <w>189</w>
-      <h>63</h>
+      <h>36</h>
     </coordinates>
     <panel_attributes>ZumoGyro
---</panel_attributes>
+--
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>396</x>
-      <y>441</y>
-      <w>27</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>639</x>
-      <y>414</y>
-      <w>189</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>CompassController
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>720</x>
-      <y>351</y>
+      <x>387</x>
+      <y>513</y>
       <w>27</w>
       <h>81</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>630</x>
+      <y>486</y>
+      <w>189</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>ZumoCompass
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>711</x>
+      <y>432</y>
+      <w>27</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
 </diagram>
