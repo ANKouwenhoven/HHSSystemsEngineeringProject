@@ -13,6 +13,12 @@ Zumo32U4ButtonA buttonA;
 #define NUMBER_OF_SENSORS 5
 uint16_t lineSensorValues[NUMBER_OF_SENSORS];
 
+#define LINE_VALUE_BLACK 1000
+#define LINE_VALUE_GREEN 800
+#define LINE_VALUE_GREY 600
+#define LINE_VALUE_RED 400
+#define LINE_VALUE_EMPTY 300
+
 bool useEmitters = true;
 bool sendInfo = true;
 bool receiveCommands = true;
@@ -27,6 +33,7 @@ void setup() {
 
 void loop() {
   lineSensors.readCalibrated(lineSensorValues, useEmitters ? QTR_EMITTERS_ON : QTR_EMITTERS_OFF);
+  determineLineColors();
 
   if (sendInfo) {
     printToSerial();
@@ -48,7 +55,41 @@ void loop() {
   leftSpeed = constrain(leftSpeed, 0, (int)maxSpeed);
   rightSpeed = constrain(rightSpeed, 0, (int)maxSpeed);
 
-  motor.setSpeeds(leftSpeed, rightSpeed);
+  motors.setSpeeds(leftSpeed, rightSpeed);
+}
+
+void determineLineColors() {
+  String perceivedLineColors[5];
+
+  for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
+    if (lineSensorValues[i] > LINE_VALUE_GREEN) {
+      //Follow the black line
+      perceivedLineColors[i] = "Black";
+    } else if (lineSensorValues[i] > LINE_VALUE_GREY) {
+      //Follow the green line
+      perceivedLineColors[i] = "Green";
+    } else if (lineSensorValues[i] > LINE_VALUE_RED) {
+      //Briefly pause at the grey line
+      perceivedLineColors[i] = "Grey";
+    } else if (lineSensorValues[i] > LINE_VALUE_EMPTY) {
+      //Ignore the red line
+      perceivedLineColors[i] = "Red";
+    } else {
+      //Ignore the whitespace
+      perceivedLineColors[i] = "Empty";
+    }
+  }
+
+  static int lastReportTime = 0;
+  if ((int)(millis() - lastReportTime) >= 100) {
+    lastReportTime = millis();
+    Serial1.print("Perceived colors per sensor ");
+
+    for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
+      Serial1.print("| ");
+      Serial1.print(perceivedLineColors[i]);
+    }
+  }
 }
 
 /*Verwerk de inkomende serial input;
