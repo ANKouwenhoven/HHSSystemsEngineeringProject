@@ -22,7 +22,9 @@ uint16_t lineSensorValues[NUMBER_OF_SENSORS];
 bool useEmitters = true;
 bool sendInfo = false;
 bool sendInfoVisual = false;
-bool receiveCommands = true;
+bool receiveCommands = false;
+bool debugMode = true;
+
 int lastError = 0;
 const int maxSpeed = 200;
 
@@ -51,18 +53,20 @@ void loop() {
     readAndProcessSerial();
   }
 
-  int position = lineSensors.readLine(lineSensorValues);
-  int error = position - 2000;
-  int speedDifference = error / 4 + 6 * (error - lastError);
-  lastError = error;
+  if (debugMode == false) {
+    int position = lineSensors.readLine(lineSensorValues);
+    int error = position - 2000;
+    int speedDifference = error / 4 + 6 * (error - lastError);
+    lastError = error;
 
-  int leftSpeed = (int)maxSpeed + speedDifference;
-  int rightSpeed = (int)maxSpeed - speedDifference;
+    int leftSpeed = (int)maxSpeed + speedDifference;
+    int rightSpeed = (int)maxSpeed - speedDifference;
 
-  leftSpeed = constrain(leftSpeed, 0, (int)maxSpeed);
-  rightSpeed = constrain(rightSpeed, 0, (int)maxSpeed);
+    leftSpeed = constrain(leftSpeed, 0, (int)maxSpeed);
+    rightSpeed = constrain(rightSpeed, 0, (int)maxSpeed);
 
-  motors.setSpeeds(leftSpeed, rightSpeed);
+    motors.setSpeeds(leftSpeed, rightSpeed);
+  }
 }
 
 void determineLineColors() {
@@ -164,14 +168,11 @@ void printInFormat(int sensorNumber, int value) {
 
 void calibrateSensors() {
   delay(1000);
-  for(uint16_t i = 0; i < 120; i++)
-  {
-    if (i > 30 && i <= 90)
-    {
+  for(uint16_t i = 0; i < 120; i++) {
+    if (i > 30 && i <= 90) {
       motors.setSpeeds(-200, 200);
     }
-    else
-    {
+    else {
       motors.setSpeeds(200, -200);
     }
 
