@@ -20,7 +20,8 @@ uint16_t lineSensorValues[NUMBER_OF_SENSORS];
 #define LINE_VALUE_EMPTY 300
 
 bool useEmitters = true;
-bool sendInfo = true;
+bool sendInfo = false;
+bool sendInfoVisual = false;
 bool receiveCommands = true;
 int lastError = 0;
 const int maxSpeed = 200;
@@ -40,6 +41,10 @@ void loop() {
   if (sendInfo) {
     printToSerial();
     delay(100);
+  }
+
+  if (sendInfoVisual) {
+    printInfoAsVisual();
   }
 
   if (receiveCommands) {
@@ -89,7 +94,7 @@ void determineLineColors() {
 
     for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
       Serial1.print("| ");
-      Serial1.print(perceivedLineColors[i]);
+      Serial1.println(perceivedLineColors[i]);
     }
   }
 }
@@ -122,6 +127,30 @@ void printToSerial() {
     printInFormat(i + 1, lineSensorValues[i]);
   }
   Serial1.println(useEmitters ? 'E' : 'e');
+}
+
+void printInfoAsVisual() {
+  static int lastReportTime = 0;
+  if ((int)(millis() - lastReportTime) >= 10) {
+    lastReportTime = millis();
+
+    Serial1.print("| ");
+    for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
+      if (lineSensorValues[i] > LINE_VALUE_GREEN) {
+        Serial1.print("#");
+      } else if (lineSensorValues[i] > LINE_VALUE_GREY) {
+        Serial1.print("=");
+      } else if (lineSensorValues[i] > LINE_VALUE_RED) {
+        Serial1.print("_");
+      } else if (lineSensorValues[i] > LINE_VALUE_EMPTY) {
+        Serial1.print(".");
+      } else {
+        Serial1.print(" ");
+      }
+      Serial1.print(" | ");
+    }
+    Serial1.println("");
+  }
 }
 
 //Neem de sensor en bijbehorende waarde en print ze op een nette manier
