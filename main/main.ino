@@ -28,6 +28,8 @@ const int maxSpeed = 200;
 void setup() {
   lineSensors.initFiveSensors();  
   Serial1.begin(9600);
+
+  calibrateSensors();
   buttonA.waitForButton();
 }
 
