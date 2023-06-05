@@ -21,12 +21,13 @@ uint16_t lineSensorValues[NUMBER_OF_SENSORS];
 
 bool useEmitters = true;
 bool sendInfo = false;
-bool sendInfoVisual = false;
-bool receiveCommands = false;
-bool debugMode = true;
+bool sendInfoVisual = true;
+bool sendColorInfo = false;
+bool receiveCommands = true;
+bool observerMode = true;
 
 int lastError = 0;
-const int maxSpeed = 200;
+int maxSpeed = 100;
 
 void setup() {
   lineSensors.initFiveSensors();  
@@ -53,7 +54,7 @@ void loop() {
     readAndProcessSerial();
   }
 
-  if (debugMode == false) {
+  if (observerMode == false) {
     int position = lineSensors.readLine(lineSensorValues);
     int error = position - 2000;
     int speedDifference = error / 4 + 6 * (error - lastError);
@@ -91,14 +92,17 @@ void determineLineColors() {
     }
   }
 
-  static int lastReportTime = 0;
-  if ((int)(millis() - lastReportTime) >= 100) {
-    lastReportTime = millis();
-    Serial1.print("Perceived colors per sensor ");
+  if (sendColorInfo) {
+    static int lastReportTime = 0;
+    if ((int)(millis() - lastReportTime) >= 100) {
+      lastReportTime = millis();
+      Serial1.print("Perceived colors per sensor ");
 
-    for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
-      Serial1.print("| ");
-      Serial1.println(perceivedLineColors[i]);
+      for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
+        Serial1.print(" | ");
+        Serial1.print(perceivedLineColors[i]);
+      }
+      Serial1.println(" |");
     }
   }
 }
@@ -117,11 +121,26 @@ void readAndProcessSerial() {
       case 'e':
         useEmitters = !useEmitters;
         break;
+      case 'o':
+        observerMode = !observerMode;
+        break;
+      case 'v':
+        sendInfoVisual = !sendInfoVisual;
+        break;
+      case 'c':
+        sendColorInfo != sendColorInfo;
+        break;
+      case '+':
+        maxSpeed += 50;
+        break;
+      case '-':
+        maxSpeed -= 50;
+        break;
     }
 
     //Debug - ontvangen character wordt terug gestuurd over normale Serial
-    Serial.print("I received a character: ");
-    Serial.println((char) incomingByte);
+    //Serial.print("I received a character: ");
+    //Serial.println((char) incomingByte);
   }
 }
 
