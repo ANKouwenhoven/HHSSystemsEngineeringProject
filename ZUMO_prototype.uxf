@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>63</x>
-      <y>81</y>
+      <x>27</x>
+      <y>126</y>
       <w>189</w>
       <h>198</h>
     </coordinates>
@@ -24,8 +24,8 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>315</x>
-      <y>72</y>
+      <x>279</x>
+      <y>117</y>
       <w>270</w>
       <h>171</h>
     </coordinates>
@@ -47,8 +47,8 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>351</x>
-      <y>315</y>
+      <x>315</x>
+      <y>360</y>
       <w>189</w>
       <h>108</h>
     </coordinates>
@@ -68,8 +68,8 @@ Responsibilities
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>351</x>
-      <y>459</y>
+      <x>315</x>
+      <y>504</y>
       <w>189</w>
       <h>63</h>
     </coordinates>
@@ -83,8 +83,8 @@ measureForces(): void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>666</x>
-      <y>234</y>
+      <x>630</x>
+      <y>279</y>
       <w>189</w>
       <h>63</h>
     </coordinates>
@@ -96,8 +96,8 @@ lookForLine(): void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>666</x>
-      <y>342</y>
+      <x>630</x>
+      <y>387</y>
       <w>189</w>
       <h>81</h>
     </coordinates>
@@ -112,8 +112,8 @@ findAngle(): void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>666</x>
-      <y>72</y>
+      <x>630</x>
+      <y>117</y>
       <w>297</w>
       <h>135</h>
     </coordinates>
@@ -132,8 +132,8 @@ findAngle(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>243</x>
-      <y>117</y>
+      <x>207</x>
+      <y>162</y>
       <w>90</w>
       <h>27</h>
     </coordinates>
@@ -143,8 +143,8 @@ findAngle(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>243</x>
-      <y>243</y>
+      <x>207</x>
+      <y>288</y>
       <w>126</w>
       <h>126</h>
     </coordinates>
@@ -154,8 +154,8 @@ findAngle(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>432</x>
-      <y>414</y>
+      <x>396</x>
+      <y>459</y>
       <w>27</w>
       <h>63</h>
     </coordinates>
@@ -165,8 +165,8 @@ findAngle(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>531</x>
-      <y>369</y>
+      <x>495</x>
+      <y>414</y>
       <w>153</w>
       <h>27</h>
     </coordinates>
@@ -176,8 +176,8 @@ findAngle(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>531</x>
-      <y>261</y>
+      <x>495</x>
+      <y>306</y>
       <w>153</w>
       <h>108</h>
     </coordinates>
@@ -187,8 +187,8 @@ findAngle(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>576</x>
-      <y>117</y>
+      <x>540</x>
+      <y>162</y>
       <w>108</w>
       <h>27</h>
     </coordinates>
@@ -198,8 +198,8 @@ findAngle(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>432</x>
-      <y>234</y>
+      <x>396</x>
+      <y>279</y>
       <w>27</w>
       <h>99</h>
     </coordinates>
@@ -209,8 +209,8 @@ findAngle(): void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>963</x>
-      <y>234</y>
+      <x>927</x>
+      <y>279</y>
       <w>189</w>
       <h>81</h>
     </coordinates>
@@ -225,8 +225,8 @@ read(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>846</x>
-      <y>261</y>
+      <x>810</x>
+      <y>306</y>
       <w>135</w>
       <h>27</h>
     </coordinates>
@@ -236,8 +236,8 @@ read(): void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>351</x>
-      <y>558</y>
+      <x>315</x>
+      <y>603</y>
       <w>189</w>
       <h>54</h>
     </coordinates>
@@ -250,8 +250,8 @@ read(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>432</x>
-      <y>513</y>
+      <x>396</x>
+      <y>558</y>
       <w>27</w>
       <h>63</h>
     </coordinates>
@@ -261,8 +261,8 @@ read(): void</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>666</x>
-      <y>459</y>
+      <x>630</x>
+      <y>504</y>
       <w>189</w>
       <h>54</h>
     </coordinates>
@@ -275,8 +275,8 @@ read(): void</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>747</x>
-      <y>414</y>
+      <x>711</x>
+      <y>459</y>
       <w>27</w>
       <h>63</h>
     </coordinates>
