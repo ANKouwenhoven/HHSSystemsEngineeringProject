@@ -32,57 +32,57 @@ int lastError = 0;
 int maxSpeed = 100;
 
 void setup() {
-  lineSensors.initFiveSensors();  
-  Serial1.begin(9600);
+  // lineSensors.initFiveSensors();  
+  // Serial1.begin(9600);
 
   controller.zumoSetup();
 
-  calibrateSensors();
-  buttonA.waitForButton();
+  // calibrateSensors();
+  // buttonA.waitForButton();
 }
 
 void loop() {
   controller.zumoLoop();
   
-  lineSensors.readCalibrated(lineSensorValues, useEmitters ? QTR_EMITTERS_ON : QTR_EMITTERS_OFF);
-  lineSensorValues[2] -= 50;
-  if (lineSensorValues[2] < 0) {
-    lineSensorValues[2] = 0;
-  }
-  lineSensorValues[0] += 50;
-  if (lineSensorValues[0] > 1000) {
-    lineSensorValues[0] = 1000;
-  }
+  // lineSensors.readCalibrated(lineSensorValues, useEmitters ? QTR_EMITTERS_ON : QTR_EMITTERS_OFF);
+  // lineSensorValues[2] -= 50;
+  // if (lineSensorValues[2] < 0) {
+  //   lineSensorValues[2] = 0;
+  // }
+  // lineSensorValues[0] += 50;
+  // if (lineSensorValues[0] > 1000) {
+  //   lineSensorValues[0] = 1000;
+  // }
 
-  determineLineColors();
+  // determineLineColors();
 
-  if (sendInfo) {
-    printToSerial();
-    delay(100);
-  }
+  // if (sendInfo) {
+  //   printToSerial();
+  //   delay(100);
+  // }
 
-  if (sendInfoVisual) {
-    printInfoAsVisual();
-  }
+  // if (sendInfoVisual) {
+  //   printInfoAsVisual();
+  // }
 
-  if (receiveCommands) {
-    readAndProcessSerial();
-  }
+  // if (receiveCommands) {
+  //   readAndProcessSerial();
+  // }
 
-  if (observerMode == false) {
-    int position = lineSensors.readLine(lineSensorValues);
-    int error = position - 2000;
-    int speedDifference = error / 4 + 10 * (error - lastError);
-    lastError = error;
+  // if (observerMode == false) {
+  //   int position = lineSensors.readLine(lineSensorValues);
+  //   int error = position - 2000;
+  //   int speedDifference = error / 4 + 10 * (error - lastError);
+  //   lastError = error;
 
-    int leftSpeed = (int)maxSpeed + speedDifference;
-    int rightSpeed = (int)maxSpeed - speedDifference;
+  //   int leftSpeed = (int)maxSpeed + speedDifference;
+  //   int rightSpeed = (int)maxSpeed - speedDifference;
 
-    leftSpeed = constrain(leftSpeed, 0, (int)maxSpeed);
-    rightSpeed = constrain(rightSpeed, 0, (int)maxSpeed);
+  //   leftSpeed = constrain(leftSpeed, 0, (int)maxSpeed);
+  //   rightSpeed = constrain(rightSpeed, 0, (int)maxSpeed);
 
-    motors.setSpeeds(leftSpeed, rightSpeed);
-  }
+  //   motors.setSpeeds(leftSpeed, rightSpeed);
+  // }
 }
 
 void determineLineColors() {
