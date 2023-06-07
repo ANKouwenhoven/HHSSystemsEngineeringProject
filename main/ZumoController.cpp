@@ -1,6 +1,6 @@
 #include "ZumoController.h"
 
-ZumoController() {
+ZumoController(): runningMode(false) {
   IOController io(false, false, false, true, false);
 }
 
@@ -12,4 +12,8 @@ void ZumoSetup() {
 
 void ZumoLoop() {
   io.printDebugMessage("Test: " + millis());
+}
+
+void flipRunMode() {
+  runningMode = !runningMode;
 }

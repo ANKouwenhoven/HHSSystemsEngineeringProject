@@ -18,20 +18,20 @@ void printToSerial(int[] lineSensorValues) {
   }
 }
 
-void printAsVisual(int[] lineSensorValues, int bG, int bB, int bGr, int bE) {
+void printAsVisual(int[] lineSensorValues, int tG, int tB, int tGr, int tE) {
   static int lastReportTime = 0;
   if ((int)(millis() - lastReportTime) >= 10) {
     lastReportTime = millis();
 
     Serial1.print("| ");
     for (int i = 0; i < 5; i++) {
-      if (lineSensorValues[i] > bG) {
+      if (lineSensorValues[i] > tG) {
         Serial1.print("#");
-      } else if (lineSensorValues[i] > bB) {
+      } else if (lineSensorValues[i] > tB) {
         Serial1.print("=");
-      } else if (lineSensorValues[i] > bGr) {
+      } else if (lineSensorValues[i] > tGr) {
         Serial1.print("_");
-      } else if (lineSensorValues[i] > bE) {
+      } else if (lineSensorValues[i] > tE) {
         Serial1.print(".");
       } else {
         Serial1.print(" ");
@@ -42,17 +42,17 @@ void printAsVisual(int[] lineSensorValues, int bG, int bB, int bGr, int bE) {
   }
 }
 
-void printPerceivedColors(int[] lineSensorValues, int bG, int bB, int bGr, int bE) {
+void printPerceivedColors(int[] lineSensorValues, int tG, int tB, int tGr, int tE) {
   String perceivedLineColors[5];
 
   for (int i = 0; i < 5; i++) {
-    if (lineSensorValues[i] > bG) {
+    if (lineSensorValues[i] > tG) {
       perceivedLineColors[i] = "Black";
-    } else if (lineSensorValues[i] > bB) {
+    } else if (lineSensorValues[i] > tB) {
       perceivedLineColors[i] = "Grey";
-    } else if (lineSensorValues[i] > bGr) {
+    } else if (lineSensorValues[i] > tGr) {
       perceivedLineColors[i] = "Brown";
-    } else if (lineSensorValues[i] > bE) {
+    } else if (lineSensorValues[i] > tE) {
       perceivedLineColors[i] = "Green";
     } else {
       //Ignore the whitespace (or red)
@@ -61,11 +61,11 @@ void printPerceivedColors(int[] lineSensorValues, int bG, int bB, int bGr, int b
   }
 
   static int lastReportTime = 0;
-  if ((int)(millis() - lastReportTime) >= 100) {
+  if ((int)(millis() - lastReportTime) >= 50) {
     lastReportTime = millis();
     Serial1.print("Perceived colors per sensor ");
 
-    for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
+    for (int i = 0; i < 5; i++) {
       Serial1.print(" | ");
       Serial1.print(perceivedLineColors[i]);
     }
@@ -75,4 +75,28 @@ void printPerceivedColors(int[] lineSensorValues, int bG, int bB, int bGr, int b
 
 void printDebugMessage(string message) {
   Serial1.print(message);
+}
+
+void readAndProcessInput() {
+  int incomingByte = Serial1.read();
+  if (incomingByte != -1) {
+    switch ((char) incomingByte) {
+      case 'i':
+        sendInfo = !sendInfo;
+        break;
+      case 'r':
+        ZumoController::flipRunMode();
+        break;
+      case 'v':
+        sendInfoVisual = !sendInfoVisual;
+        break;
+      case 'c':
+        sendColorInfo = !sendColorInfo;
+        break;
+    }
+
+    //Debug - ontvangen character wordt terug gestuurd over normale Serial
+    //Serial.print("I received a character: ");
+    //Serial.println((char) incomingByte);
+  }
 }

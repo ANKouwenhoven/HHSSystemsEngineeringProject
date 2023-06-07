@@ -13,12 +13,14 @@ class ZumoController {
     LineSensorController lineSensor;
     IOController io;
     Zumo34UButtonA buttonA;
+    bool runningMode;
 
   public:
     ZumoController();
     ~ZumoController();
     void zumoSetup();
     void zumoLoop();
+    void flipRunMode();
 }
 
 #endif

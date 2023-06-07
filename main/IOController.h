@@ -2,6 +2,7 @@
 #define IOCONTROLLER_H
 
 #include <Arduino.h>
+#include "ZumoController.h"
 
 class IOController {
   private:
@@ -19,7 +20,7 @@ class IOController {
     void printToSerial(int[]);
     void printAsVisual(int[], int, int, int, int);
     void printPerceivedColors(int[], int, int, int, int);
-    void readAndProcessSerial();
+    void readAndProcessInput();
     void printDebugMessage(string);
 }
 
