@@ -10,6 +10,8 @@ class LineSensorController {
     Zumo34ULineSensors lineSensors;
 
   public:
+    LineSensorController();
+    ~LineSensorController();
     void init();
     void calibrateSensors();
     void readValues();

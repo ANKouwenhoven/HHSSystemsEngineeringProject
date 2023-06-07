@@ -10,6 +10,8 @@ class MotorController {
     int maxSpeed;
 
   public:
+    MotorController(int);
+    ~MotorController();
     void driveOnLine(int[]);
     void driveStraight();
     void rotate(bool);
