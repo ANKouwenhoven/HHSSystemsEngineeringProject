@@ -14,15 +14,15 @@ Zumo32U4ButtonA buttonA;
 uint16_t lineSensorValues[NUMBER_OF_SENSORS];
 
 #define LINE_VALUE_BLACK 1000
-#define LINE_VALUE_GREEN 800
-#define LINE_VALUE_GREY 600
-#define LINE_VALUE_RED 400
-#define LINE_VALUE_EMPTY 300
+#define LINE_VALUE_GREEN 200
+#define LINE_VALUE_BROWN 330
+#define LINE_VALUE_GREY 500
+#define LINE_VALUE_EMPTY 80
 
 bool useEmitters = true;
 bool sendInfo = false;
-bool sendInfoVisual = true;
-bool sendColorInfo = false;
+bool sendInfoVisual = false;
+bool sendColorInfo = true;
 bool receiveCommands = true;
 bool observerMode = true;
 
@@ -39,6 +39,15 @@ void setup() {
 
 void loop() {
   lineSensors.readCalibrated(lineSensorValues, useEmitters ? QTR_EMITTERS_ON : QTR_EMITTERS_OFF);
+  lineSensorValues[2] -= 50;
+  if (lineSensorValues[2] < 0) {
+    lineSensorValues[2] = 0;
+  }
+  lineSensorValues[0] += 50;
+  if (lineSensorValues[0] > 1000) {
+    lineSensorValues[0] = 1000;
+  }
+
   determineLineColors();
 
   if (sendInfo) {
@@ -57,7 +66,7 @@ void loop() {
   if (observerMode == false) {
     int position = lineSensors.readLine(lineSensorValues);
     int error = position - 2000;
-    int speedDifference = error / 4 + 6 * (error - lastError);
+    int speedDifference = error / 4 + 10 * (error - lastError);
     lastError = error;
 
     int leftSpeed = (int)maxSpeed + speedDifference;
@@ -74,18 +83,14 @@ void determineLineColors() {
   String perceivedLineColors[5];
 
   for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
-    if (lineSensorValues[i] > LINE_VALUE_GREEN) {
-      //Follow the black line
+    if (lineSensorValues[i] > LINE_VALUE_GREY) {
       perceivedLineColors[i] = "Black";
-    } else if (lineSensorValues[i] > LINE_VALUE_GREY) {
-      //Follow the green line
-      perceivedLineColors[i] = "Green";
-    } else if (lineSensorValues[i] > LINE_VALUE_RED) {
-      //Briefly pause at the grey line
+    } else if (lineSensorValues[i] > LINE_VALUE_BROWN) {
       perceivedLineColors[i] = "Grey";
+    } else if (lineSensorValues[i] > LINE_VALUE_GREEN) {
+      perceivedLineColors[i] = "Brown";
     } else if (lineSensorValues[i] > LINE_VALUE_EMPTY) {
-      //Ignore the red line
-      perceivedLineColors[i] = "Red";
+      perceivedLineColors[i] = "Green";
     } else {
       //Ignore the whitespace
       perceivedLineColors[i] = "Empty";
@@ -159,11 +164,11 @@ void printInfoAsVisual() {
 
     Serial1.print("| ");
     for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
-      if (lineSensorValues[i] > LINE_VALUE_GREEN) {
+      if (lineSensorValues[i] > LINE_VALUE_GREY) {
         Serial1.print("#");
-      } else if (lineSensorValues[i] > LINE_VALUE_GREY) {
+      } else if (lineSensorValues[i] > LINE_VALUE_BROWN) {
         Serial1.print("=");
-      } else if (lineSensorValues[i] > LINE_VALUE_RED) {
+      } else if (lineSensorValues[i] > LINE_VALUE_GREEN) {
         Serial1.print("_");
       } else if (lineSensorValues[i] > LINE_VALUE_EMPTY) {
         Serial1.print(".");
