@@ -21,6 +21,7 @@ class ZumoController {
     void zumoSetup();
     void zumoLoop();
     void flipRunMode();
+    void calibrateSensors();
 }
 
 #endif
