@@ -8,14 +8,14 @@ class LineSensorController {
   private:
     extern uint16_t lineSensorValues[5];
     Zumo34ULineSensors lineSensors;
+    bool useEmitters;
 
   public:
     LineSensorController();
     ~LineSensorController();
-    void init();
     void calibrateSensors();
-    void readValues();
-    void readLine();
+    int[] readValues();
+    int readLine();
 }
 
 #endif

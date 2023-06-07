@@ -8,14 +8,18 @@
 
 #define NUMBER_OF_SENSORS 5
 
-LineSensorController() {}
+LineSensorController(): useEmitters(false) {}
 
 ~LineSensorController() {}
 
-void init() {}
+void calibrateSensors() {
+  lineSensors.calibrate();
+}
 
-void calibrateSensors() {}
+int[] readValues() {
+  return lineSensors.readCalibrated(lineSensorValues, useEmitters ? QTR_EMITTERS_ON : QTR_EMITTERS_OFF);
+}
 
-void readValues() {}
-
-void readLine() {}
+int readLine() {
+  return lineSensors.readLine(lineSensorValues);
+}
