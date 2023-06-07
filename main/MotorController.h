@@ -8,11 +8,12 @@ class MotorController {
   private:
     Zumo34Motors motors;
     int maxSpeed;
+    int halfSpeed;
 
   public:
     MotorController(int);
     ~MotorController();
-    void driveOnLine(int[]);
+    void driveOnLine(int);
     void driveStraight();
     void rotate(bool);
     void stop();
