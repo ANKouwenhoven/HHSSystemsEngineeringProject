@@ -4,11 +4,13 @@ MAIN FILE - TO BE SPLIT
 
 #include <Wire.h>
 #include <Zumo32U4.h>
+#include "ZumoController.h"
 
 Zumo32U4LineSensors lineSensors;
 Zumo32U4Motors motors;
 Zumo32U4Buzzer buzzer;
 Zumo32U4ButtonA buttonA;
+ZumoController controller;
 
 #define NUMBER_OF_SENSORS 5
 uint16_t lineSensorValues[NUMBER_OF_SENSORS];
@@ -33,11 +35,15 @@ void setup() {
   lineSensors.initFiveSensors();  
   Serial1.begin(9600);
 
+  controller.zumoSetup();
+
   calibrateSensors();
   buttonA.waitForButton();
 }
 
 void loop() {
+  controller.zumoLoop();
+  
   lineSensors.readCalibrated(lineSensorValues, useEmitters ? QTR_EMITTERS_ON : QTR_EMITTERS_OFF);
   lineSensorValues[2] -= 50;
   if (lineSensorValues[2] < 0) {

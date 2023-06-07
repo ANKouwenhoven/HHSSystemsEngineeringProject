@@ -1,6 +1,7 @@
 #ifndef ZUMOCONTROLLER_H
 #define ZUMOCONTROLLER_H
 
+#include <Arduino.h>
 #include <Zumo34U.h>
 #include MotorController.h
 #include LineSensorController.h
@@ -14,6 +15,8 @@ class ZumoController {
     Zumo34UButtonA buttonA;
 
   public:
+    ZumoController();
+    ~ZumoController();
     void zumoSetup();
     void zumoLoop();
 }
