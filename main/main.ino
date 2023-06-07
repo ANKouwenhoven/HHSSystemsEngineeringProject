@@ -76,6 +76,8 @@ void loop() {
     rightSpeed = constrain(rightSpeed, 0, (int)maxSpeed);
 
     motors.setSpeeds(leftSpeed, rightSpeed);
+  } else {
+    motors.setSpeeds(0, 0);
   }
 }
 
