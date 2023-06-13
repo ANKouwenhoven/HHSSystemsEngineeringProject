@@ -1,24 +1,34 @@
 #include "IOController.h"
 
-IOController() {}
+IOController::IOController() {}
 
-IOController(bool o1, bool o2, bool o3, bool o4, bool o5): sendRawInfo(o1), sendVisualInfo(o2), sendColorInfo(o3), receiveCommands(o4), runningMode(o5) {
+IOController::IOController(bool o1, bool o2, bool o3, bool o4, bool o5): sendRawInfo(o1), sendInfoVisual(o2), sendColorInfo(o3), receiveCommands(o4), runningMode(o5) {
   init();
 }
 
-~IOController() {}
+IOController::~IOController() {}
 
-void init() {
+void IOController::init() {
   Serial1.begin(9600);
+  Serial.begin(9600);
+  //while (!Serial) {}
 }
 
-void printToSerial(int[] lineSensorValues) {
+void IOController::printToSerial(int lineSensorValues[]) {
   for (int i = 0; i < 5; i++) {
     printInFormat(i + 1, lineSensorValues[i]);
   }
 }
 
-void printAsVisual(int[] lineSensorValues, int tG, int tB, int tGr, int tE) {
+void IOController::printInFormat(int sensorNumber, int value) {
+  Serial1.print("Sensor ");
+  Serial1.print(sensorNumber);
+  Serial1.print(": ");
+  Serial1.print(value);
+  Serial1.print(" | ");
+}
+
+void IOController::printAsVisual(int lineSensorValues[], int tG, int tB, int tGr, int tE) {
   static int lastReportTime = 0;
   if ((int)(millis() - lastReportTime) >= 10) {
     lastReportTime = millis();
@@ -42,7 +52,7 @@ void printAsVisual(int[] lineSensorValues, int tG, int tB, int tGr, int tE) {
   }
 }
 
-void printPerceivedColors(int[] lineSensorValues, int tG, int tB, int tGr, int tE) {
+void IOController::printPerceivedColors(int lineSensorValues[], int tG, int tB, int tGr, int tE) {
   String perceivedLineColors[5];
 
   for (int i = 0; i < 5; i++) {
@@ -73,19 +83,19 @@ void printPerceivedColors(int[] lineSensorValues, int tG, int tB, int tGr, int t
   }
 }
 
-void printDebugMessage(string message) {
-  Serial1.print(message);
+void IOController::printDebugMessage(String message) {
+  Serial.println(message);
 }
 
-void readAndProcessInput() {
+void IOController::readAndProcessInput() {
   int incomingByte = Serial1.read();
   if (incomingByte != -1) {
     switch ((char) incomingByte) {
       case 'i':
-        sendInfo = !sendInfo;
+        sendRawInfo = !sendRawInfo;
         break;
       case 'r':
-        ZumoController::flipRunMode();
+        //ZumoController::flipRunMode();
         break;
       case 'v':
         sendInfoVisual = !sendInfoVisual;

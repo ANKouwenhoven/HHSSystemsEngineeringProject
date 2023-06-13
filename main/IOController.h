@@ -2,7 +2,8 @@
 #define IOCONTROLLER_H
 
 #include <Arduino.h>
-#include "ZumoController.h"
+#include <string.h>
+#include <Wire.h>
 
 class IOController {
   private:
@@ -20,8 +21,9 @@ class IOController {
     void printToSerial(int[]);
     void printAsVisual(int[], int, int, int, int);
     void printPerceivedColors(int[], int, int, int, int);
+    void printInFormat(int, int);
     void readAndProcessInput();
-    void printDebugMessage(string);
-}
+    void printDebugMessage(String);
+};
 
 #endif

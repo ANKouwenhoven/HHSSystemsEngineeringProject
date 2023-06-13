@@ -1,15 +1,19 @@
 #include "MotorController.h"
 
-MotorController(int max): maxSpeed(max) {
+MotorController::MotorController() {}
+
+MotorController::MotorController(int max) {
+  maxSpeed = max;
   halfSpeed = max / 2;
+  lastError = 0;
 }
 
-~MotorController() {}
+MotorController::~MotorController() {}
 
-void driveOnLine(int position) {
+void MotorController::driveOnLine(int position) {
   int error = position - 2000;
   int speedDifference = error / 4 + 10 * (error - lastError);
-   lastError = error;
+  lastError = error;
 
   int leftSpeed = (int)maxSpeed + speedDifference;
   int rightSpeed = (int)maxSpeed - speedDifference;
@@ -20,11 +24,11 @@ void driveOnLine(int position) {
   motors.setSpeeds(leftSpeed, rightSpeed);
 }
 
-void driveStraight(int speed) {
+void MotorController::driveStraight(int speed) {
   motors.setSpeeds(speed, speed);
 }
 
-void rotate(bool clockwise) {
+void MotorController::rotate(bool clockwise) {
   if (clockwise) {
     motors.setSpeeds(200, -200);
   } else {
@@ -32,6 +36,6 @@ void rotate(bool clockwise) {
   }
 }
 
-void stop() {
+void MotorController::stop() {
   motors.setSpeeds(0, 0);
 }

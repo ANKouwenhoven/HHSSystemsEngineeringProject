@@ -2,20 +2,20 @@
 #define LINESENSORCONTROLLER_H
 
 #include <Arduino.h>
-#include <Zumo34U.h>
+#include <Zumo32U4.h>
 
 class LineSensorController {
   private:
-    extern uint16_t lineSensorValues[5];
-    Zumo34ULineSensors lineSensors;
+    int lineSensorValues[5];
+    Zumo32U4LineSensors lineSensors;
     bool useEmitters;
 
   public:
     LineSensorController();
     ~LineSensorController();
     void calibrateSensors();
-    int[] readValues();
+    int *readValues();
     int readLine();
-}
+};
 
 #endif

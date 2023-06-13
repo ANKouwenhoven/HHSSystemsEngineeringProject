@@ -1,32 +1,38 @@
 #include "ZumoController.h"
 
-ZumoController(): runningMode(false) {
+ZumoController::ZumoController() {
   IOController io(false, false, false, true, false);
+  runningMode = true;
   MotorController motors(100);
   LineSensorController lineSensors();
-  Zumo34UButtonA buttonA();
+  Zumo32U4ButtonA buttonA();
 }
 
-~ZumoController() {}
+ZumoController::~ZumoController() {}
 
-void ZumoSetup() {
+void ZumoController::zumoSetup() {
   io.init();
   calibrateSensors();
   buttonA.waitForButton();
 }
 
-void ZumoLoop() {
-  io.printDebugMessage("Test: " + millis());
+void ZumoController::zumoLoop() {
+  //io.printDebugMessage("Test: ");
+  delay(100);
+  int position = lineSensors.readLine();
+  motors.driveOnLine(position);
+  io.printDebugMessage((String)position);
 }
 
-void flipRunMode() {
+void ZumoController::flipRunMode() {
   runningMode = !runningMode;
 }
 
-void calibrateSensors() {
-  usleep(1000000);
+void ZumoController::calibrateSensors() {
+  delay(1000);
 
   for(uint16_t i = 0; i < 120; i++) {
+    delay(10);
     if (i > 30 && i <= 90) {
       motors.rotate(true);
     }
