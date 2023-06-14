@@ -18,11 +18,22 @@ uint16_t lineSensorValues[NUMBER_OF_SENSORS];
 #define LINE_VALUE_GREY 500
 #define LINE_VALUE_EMPTY 80
 
+//IR emitters
 bool useEmitters = true;
+
+//Zumo stuurt informatie over de sensorwaardes
 bool sendInfo = false;
+
+//Zumo stuurt informatie over de sensorwaardes in sneller te verwerken visuele mode
 bool sendInfoVisual = false;
+
+//Zumo stuurt informatie over de kleur die gedetecteerd wordt
 bool sendColorInfo = false;
+
+//Zumo verwerkt input die vanaf Serial1 verstuurd is
 bool receiveCommands = true;
+
+//In observermode zal Zumo niet rijden
 bool observerMode = false;
 
 int lastError = 0;
@@ -57,6 +68,8 @@ void loop() {
   if (observerMode == false) {
     int position = lineSensors.readLine(lineSensorValues);
     int error = position - 2000;
+
+    // **Dit stuk code zou de Zumo beter maken in scherpe bochten, maar het maakte hem te instabiel**
 
     // int strongestpos = 2;
     // int currentMax = 0;
@@ -95,6 +108,9 @@ void loop() {
   }
 }
 
+/*
+  Analyseert de linesensorValues en bepaalt welke kleur het meest waarschijnlijk gedetecteerd wordt
+*/
 void determineLineColors() {
   String perceivedLineColors[5];
 
