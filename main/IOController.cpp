@@ -14,12 +14,24 @@ void IOController::init() {
   //while (!Serial) {}
 }
 
+/**
+  @brief Drukt de sensorwaarden af op de Serial1-poort.
+  Deze functie drukt de sensorwaarden af op de Serial1-poort door gebruik te maken van de printInFormat-functie.
+  @param lineSensorValues Een array met de sensorwaarden van de lijnsensoren.
+*/
 void IOController::printToSerial(int lineSensorValues[]) {
   for (int i = 0; i < 5; i++) {
     printInFormat(i + 1, lineSensorValues[i]);
   }
 }
 
+/**
+  @brief Drukt de sensorwaarde af in een specifiek formaat.
+  Deze functie drukt de opgegeven sensorwaarde af in een specifiek formaat op de Serial1-poort.
+  Het formaat bestaat uit de tekst "Sensor <sensorNumber>: <value> | ".
+  @param sensorNumber Het nummer van de sensor.
+  @param value De waarde van de sensor.
+*/
 void IOController::printInFormat(int sensorNumber, int value) {
   Serial1.print("Sensor ");
   Serial1.print(sensorNumber);
@@ -28,6 +40,17 @@ void IOController::printInFormat(int sensorNumber, int value) {
   Serial1.print(" | ");
 }
 
+/**
+  @brief Print de lineSensorValues als visuele representatie.
+  Deze functie print de lineSensorValues-array als een visuele representatie op de Serial1-poort.
+  De visuele representatie bestaat uit een reeks symbolen, waarbij elk symbool een sensorwaarde voorstelt.
+  De symbolen worden afgedrukt op basis van de drempelwaarden tG, tB, tGr en tE.
+  @param lineSensorValues Een array met de sensorwaarden van de lijnsensoren.
+  @param tG Drempelwaarde voor het symbool "#" (hoogste waarde).
+  @param tB Drempelwaarde voor het symbool "=".
+  @param tGr Drempelwaarde voor het symbool "_".
+  @param tE Drempelwaarde voor het symbool "." (laagste waarde).
+*/
 void IOController::printAsVisual(int lineSensorValues[], int tG, int tB, int tGr, int tE) {
   static int lastReportTime = 0;
   if ((int)(millis() - lastReportTime) >= 10) {
@@ -52,6 +75,17 @@ void IOController::printAsVisual(int lineSensorValues[], int tG, int tB, int tGr
   }
 }
 
+/**
+  @brief Print de waargenomen kleuren op basis van de lineSensorValues.
+  Deze functie bepaalt de waargenomen kleuren op basis van de sensorwaarden van de lijnsensoren (lineSensorValues).
+  De kleur van elke sensor wordt bepaald aan de hand van drempelwaarden (tG, tB, tGr, tE).
+  De waargenomen kleuren worden afgedrukt op de Serial1-poort.
+  @param lineSensorValues Een array met de sensorwaarden van de lijnsensoren.
+  @param tG Drempelwaarde voor de kleur "Black" (hoogste waarde).
+  @param tB Drempelwaarde voor de kleur "Grey".
+  @param tGr Drempelwaarde voor de kleur "Brown".
+  @param tE Drempelwaarde voor de kleur "Green" (laagste waarde).
+*/
 void IOController::printPerceivedColors(int lineSensorValues[], int tG, int tB, int tGr, int tE) {
   String perceivedLineColors[5];
 
@@ -83,10 +117,24 @@ void IOController::printPerceivedColors(int lineSensorValues[], int tG, int tB, 
   }
 }
 
+/**
+  Simpele serial print voor debugging doeleinden
+  @param message de inhoud van het bericht
+*/
 void IOController::printDebugMessage(String message) {
   Serial.println(message);
 }
 
+/**
+  @brief Leest en verwerkt de invoer van Serial1.
+  Deze functie leest een enkele byte van Serial1 en verwerkt het volgens de ontvangen waarde.
+  De verwerking omvat het aanpassen van verschillende vlagvariabelen op basis van de ontvangen waarde.
+  Mogelijke ontvangen waarden en hun betekenis:
+  'i': Wisselt de status van de vlagvariabele sendRawInfo (sturen van ruwe informatie).
+  'r': Wisselt de status van runningMode in de ZumoController
+  'v': Wisselt de status van sendInfoVisual (sturen van visuele informatie).
+  'c': Wisselt de status van sendColorInfo (sturen van kleurinformatie).
+*/
 void IOController::readAndProcessInput() {
   int incomingByte = Serial1.read();
   if (incomingByte != -1) {

@@ -7,7 +7,7 @@
 class MotorController {
   private:
     Zumo32U4Motors motors;
-    Zumo32U4ButtonA buttonA;
+    //Zumo32U4ButtonA buttonA;
     int maxSpeed;
     int halfSpeed;
     int lastError;
