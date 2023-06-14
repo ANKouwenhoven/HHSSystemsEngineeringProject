@@ -37,7 +37,7 @@ void IOController::printInFormat(int sensorNumber, int value) {
   Serial1.print(sensorNumber);
   Serial1.print(": ");
   Serial1.print(value);
-  Serial1.print(" | ");
+  Serial1.println(" | ");
 }
 
 /**

@@ -6,16 +6,20 @@
 
 class LineSensorController {
   private:
-    int lineSensorValues[5];
-    Zumo32U4LineSensors lineSensors;
+    // int lineSensorValues[5];
+    // Zumo32U4LineSensors lineSensors;
     bool useEmitters;
 
   public:
+    Zumo32U4LineSensors lineSensors;
     LineSensorController();
     ~LineSensorController();
+    int lineSensorValues[5];
+    int zwartwarde[5];
     void calibrateSensors();
     int *readValues();
     int readLine();
+    void init();
 };
 
 #endif

@@ -8,11 +8,15 @@
 
 #define NUMBER_OF_SENSORS 5
 
-LineSensorController::LineSensorController() {
+LineSensorController::LineSensorController(): useEmitters(true) {
   Zumo32U4LineSensors lineSensors();
 }
 
 LineSensorController::~LineSensorController() {}
+
+void LineSensorController::init() {
+  lineSensors.initFiveSensors();
+}
 
 /**
   @brief Kalibreert de lijnsensoren.
@@ -31,7 +35,7 @@ void LineSensorController::calibrateSensors() {
   @return Een pointer naar de lineSensorValues-array met de gelezen sensorwaarden.
 */
 int* LineSensorController::readValues() {
-  lineSensors.readCalibrated(lineSensorValues, useEmitters ? QTR_EMITTERS_ON : QTR_EMITTERS_OFF);
+  lineSensors.read(lineSensorValues, useEmitters ? QTR_EMITTERS_ON : QTR_EMITTERS_OFF);
   return lineSensorValues;
 }
 

@@ -2,8 +2,7 @@
 
 MotorController::MotorController() {}
 
-MotorController::MotorController(int max) {
-  maxSpeed = max;
+MotorController::MotorController(int max): maxSpeed(max) {
   halfSpeed = max / 2;
   lastError = 0;
 }
@@ -20,15 +19,17 @@ MotorController::~MotorController() {}
 */
 void MotorController::driveOnLine(int position) {
   int error = position - 2000;
-  int speedDifference = error / 4 + 10 * (error - lastError);
+  int speedDifference = error * 10 + 50 * (error - lastError);
   lastError = error;
 
+  Serial.println(maxSpeed);
   int leftSpeed = (int)maxSpeed + speedDifference;
   int rightSpeed = (int)maxSpeed - speedDifference;
 
   leftSpeed = constrain(leftSpeed, 0, (int)maxSpeed);
   rightSpeed = constrain(rightSpeed, 0, (int)maxSpeed);
-
+  // Serial.print(leftSpeed);
+  // Serial.println(rightSpeed);
   motors.setSpeeds(leftSpeed, rightSpeed);
 }
 

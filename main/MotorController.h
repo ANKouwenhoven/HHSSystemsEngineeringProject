@@ -8,11 +8,12 @@ class MotorController {
   private:
     Zumo32U4Motors motors;
     //Zumo32U4ButtonA buttonA;
-    int maxSpeed;
+    // int maxSpeed;
     int halfSpeed;
     int lastError;
 
   public:
+    int maxSpeed;
     MotorController();
     MotorController(int);
     ~MotorController();

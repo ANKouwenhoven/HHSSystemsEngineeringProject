@@ -17,18 +17,21 @@ ZumoController::~ZumoController() {}
 */
 void ZumoController::zumoSetup() {
   io.init();
+  lineSensors.init();
   calibrateSensors();
+  Serial1.println("All done!");
   buttonA.waitForButton();
+  motors.maxSpeed = 100;
 }
 
 /**
   Hoofdloop van de Zumo
 */
 void ZumoController::zumoLoop() {
-  delay(100);
+  // delay(1);
   int position = lineSensors.readLine();
+  io.printAsVisual(lineSensors.readValues(), 500, 330, 200, 80);
   motors.driveOnLine(position);
-  io.printDebugMessage((String)position);
 }
 
 /**
