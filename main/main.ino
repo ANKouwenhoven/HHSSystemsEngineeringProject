@@ -108,7 +108,6 @@ void determineLineColors() {
     } else if (lineSensorValues[i] > LINE_VALUE_EMPTY) {
       perceivedLineColors[i] = "Green";
     } else {
-      //Ignore the whitespace
       perceivedLineColors[i] = "Empty";
     }
   }
@@ -121,7 +120,6 @@ void determineLineColors() {
       break;
     }
   }
-  //Serial1.println(consensusColor);
 
   if (sendColorInfo) {
     static int lastReportTime = 0;
@@ -139,8 +137,13 @@ void determineLineColors() {
 }
 
 /*Verwerk de inkomende serial input;
-  Input 'i': Toggle het verwerken van info aan/uit
-  Input 'e': Toggle de IR emitter aan/uit
+  Input 'i': Toggle het weergeven van info
+  Input 'e': Toggle de IR emitter
+  Input 'o': Toggle observermode - in observer mode zal de zumo niet rijden
+  Input 'v': Toggle het weergeven van info in symbol mode
+  Input 'c': Toggle het weergeven van info in color mode
+  Input '+': Verhoog de max speed met 50
+  Input '-': Verlaag de max speed met 50
 */
 void readAndProcessSerial() {
   int incomingByte = Serial1.read();
@@ -175,7 +178,9 @@ void readAndProcessSerial() {
   }
 }
 
-//Neem alle 5 de sensorvalues, en print ze naar de serial via printInFormat
+/*
+  Neem alle 5 de sensorvalues, en print ze naar de serial via printInFormat
+*/
 void printToSerial() {
   for (int i = 0; i < 5; i++) {
     printInFormat(i + 1, lineSensorValues[i]);
@@ -183,6 +188,11 @@ void printToSerial() {
   Serial1.println(useEmitters ? 'E' : 'e');
 }
 
+/*
+  Print de sensorinfo in symbol mode, waarbij er per sensor een symbool wordt weergegeven
+  Symbolen zijn gebaseerd op signaalsterkte
+  Hierdoor wordt er een estimate weergegeven onder welke sensor de lijn zich waarschijnlijk bevindt
+*/
 void printInfoAsVisual() {
   static int lastReportTime = 0;
   if ((int)(millis() - lastReportTime) >= 10) {
@@ -207,7 +217,9 @@ void printInfoAsVisual() {
   }
 }
 
-//Neem de sensor en bijbehorende waarde en print ze op een nette manier
+/*
+  Neem de sensor en bijbehorende waarde en print ze op een nette manier
+*/
 void printInFormat(int sensorNumber, int value) {
   Serial1.print("Sensor ");
   Serial1.print(sensorNumber);
@@ -216,6 +228,9 @@ void printInFormat(int sensorNumber, int value) {
   Serial1.print(" | ");
 }
 
+/*
+  Draait om zijn as en calibreert de sensors
+*/
 void calibrateSensors() {
   delay(1000);
   for (uint16_t i = 0; i < 120; i++) {
