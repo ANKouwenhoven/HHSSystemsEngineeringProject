@@ -7,7 +7,6 @@ MAIN FILE - TO BE SPLIT
 
 Zumo32U4LineSensors lineSensors;
 Zumo32U4Motors motors;
-Zumo32U4Buzzer buzzer;
 Zumo32U4ButtonA buttonA;
 
 #define NUMBER_OF_SENSORS 5
@@ -22,15 +21,16 @@ uint16_t lineSensorValues[NUMBER_OF_SENSORS];
 bool useEmitters = true;
 bool sendInfo = false;
 bool sendInfoVisual = false;
-bool sendColorInfo = true;
+bool sendColorInfo = false;
 bool receiveCommands = true;
-bool observerMode = true;
+bool observerMode = false;
 
 int lastError = 0;
-int maxSpeed = 100;
+int maxSpeed = 400;
+String consensusColor = "";
 
 void setup() {
-  lineSensors.initFiveSensors();  
+  lineSensors.initFiveSensors();
   Serial1.begin(9600);
 
   calibrateSensors();
@@ -39,20 +39,11 @@ void setup() {
 
 void loop() {
   lineSensors.readCalibrated(lineSensorValues, useEmitters ? QTR_EMITTERS_ON : QTR_EMITTERS_OFF);
-  lineSensorValues[2] -= 50;
-  if (lineSensorValues[2] < 0) {
-    lineSensorValues[2] = 0;
-  }
-  lineSensorValues[0] += 50;
-  if (lineSensorValues[0] > 1000) {
-    lineSensorValues[0] = 1000;
-  }
 
   determineLineColors();
 
   if (sendInfo) {
     printToSerial();
-    delay(100);
   }
 
   if (sendInfoVisual) {
@@ -66,16 +57,39 @@ void loop() {
   if (observerMode == false) {
     int position = lineSensors.readLine(lineSensorValues);
     int error = position - 2000;
-    int speedDifference = error / 4 + 10 * (error - lastError);
+
+    // int strongestpos = 2;
+    // int currentMax = 0;
+    // for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
+    //   if (lineSensorValues[i] > currentMax) {
+    //     currentMax = lineSensorValues[i];
+    //     strongestpos = i;
+    //   }
+    // }
+
+    // if (strongestpos == 0) {
+    //   motors.setSpeeds(-200, 300);
+    // } else if (strongestpos == 4) {
+    //   motors.setSpeeds(300, -200);
+    // } else {
+
+    int speedDifference = error * 10 + 50 * (error - lastError);
     lastError = error;
 
-    int leftSpeed = (int)maxSpeed + speedDifference;
-    int rightSpeed = (int)maxSpeed - speedDifference;
+    int finalSpeed;
+    if (consensusColor == "Black") {
+      finalSpeed = maxSpeed;
+    } else {
+      finalSpeed = maxSpeed / 2;
+    }
+    int leftSpeed = (int)finalSpeed + speedDifference;
+    int rightSpeed = (int)finalSpeed - speedDifference;
 
-    leftSpeed = constrain(leftSpeed, 0, (int)maxSpeed);
-    rightSpeed = constrain(rightSpeed, 0, (int)maxSpeed);
+    leftSpeed = constrain(leftSpeed, 0, (int)finalSpeed);
+    rightSpeed = constrain(rightSpeed, 0, (int)finalSpeed);
 
     motors.setSpeeds(leftSpeed, rightSpeed);
+    // }
   } else {
     motors.setSpeeds(0, 0);
   }
@@ -90,7 +104,7 @@ void determineLineColors() {
     } else if (lineSensorValues[i] > LINE_VALUE_BROWN) {
       perceivedLineColors[i] = "Grey";
     } else if (lineSensorValues[i] > LINE_VALUE_GREEN) {
-      perceivedLineColors[i] = "Brown";
+      perceivedLineColors[i] = "Brown / green";
     } else if (lineSensorValues[i] > LINE_VALUE_EMPTY) {
       perceivedLineColors[i] = "Green";
     } else {
@@ -98,6 +112,16 @@ void determineLineColors() {
       perceivedLineColors[i] = "Empty";
     }
   }
+
+  for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
+    if (lineSensorValues[i] > LINE_VALUE_EMPTY && lineSensorValues[i] < LINE_VALUE_GREY) {
+      consensusColor = "Green";
+    } else if (lineSensorValues[i] > LINE_VALUE_GREY) {
+      consensusColor = "Black";
+      break;
+    }
+  }
+  //Serial1.println(consensusColor);
 
   if (sendColorInfo) {
     static int lastReportTime = 0;
@@ -121,7 +145,7 @@ void determineLineColors() {
 void readAndProcessSerial() {
   int incomingByte = Serial1.read();
   if (incomingByte != -1) {
-    switch ((char) incomingByte) {
+    switch ((char)incomingByte) {
       case 'i':
         sendInfo = !sendInfo;
         break;
@@ -135,7 +159,7 @@ void readAndProcessSerial() {
         sendInfoVisual = !sendInfoVisual;
         break;
       case 'c':
-        sendColorInfo != sendColorInfo;
+        sendColorInfo = !sendColorInfo;
         break;
       case '+':
         maxSpeed += 50;
@@ -194,11 +218,10 @@ void printInFormat(int sensorNumber, int value) {
 
 void calibrateSensors() {
   delay(1000);
-  for(uint16_t i = 0; i < 120; i++) {
+  for (uint16_t i = 0; i < 120; i++) {
     if (i > 30 && i <= 90) {
       motors.setSpeeds(-200, 200);
-    }
-    else {
+    } else {
       motors.setSpeeds(200, -200);
     }
 
