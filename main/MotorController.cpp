@@ -17,17 +17,23 @@ MotorController::~MotorController() {}
   De snelheden van de linker- en rechtermotor worden aangepast op basis van het maximale snelheidsverschil (maxSpeed) en het berekende snelheidsverschil.
   @param position De huidige positie van de lijn.
 */
-void MotorController::driveOnLine(int position) {
+void MotorController::driveOnLine(int position, String color) {
   int error = position - 2000;
   int speedDifference = error * 10 + 50 * (error - lastError);
   lastError = error;
 
-  Serial.println(maxSpeed);
-  int leftSpeed = (int)maxSpeed + speedDifference;
-  int rightSpeed = (int)maxSpeed - speedDifference;
+  int finalSpeed;
+  if (color == "Black") {
+    finalSpeed = maxSpeed;
+  } else {
+    finalSpeed = maxSpeed / 2;
+  }
 
-  leftSpeed = constrain(leftSpeed, 0, (int)maxSpeed);
-  rightSpeed = constrain(rightSpeed, 0, (int)maxSpeed);
+  int leftSpeed = (int)finalSpeed + speedDifference;
+  int rightSpeed = (int)finalSpeed - speedDifference;
+
+  leftSpeed = constrain(leftSpeed, 0, (int)finalSpeed);
+  rightSpeed = constrain(rightSpeed, 0, (int)finalSpeed);
   // Serial.print(leftSpeed);
   // Serial.println(rightSpeed);
   motors.setSpeeds(leftSpeed, rightSpeed);

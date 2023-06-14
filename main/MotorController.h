@@ -7,8 +7,6 @@
 class MotorController {
   private:
     Zumo32U4Motors motors;
-    //Zumo32U4ButtonA buttonA;
-    // int maxSpeed;
     int halfSpeed;
     int lastError;
 
@@ -17,7 +15,7 @@ class MotorController {
     MotorController();
     MotorController(int);
     ~MotorController();
-    void driveOnLine(int);
+    void driveOnLine(int, String);
     void driveStraight(int);
     void rotate(bool);
     void stop();

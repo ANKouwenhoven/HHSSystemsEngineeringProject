@@ -27,6 +27,37 @@ void LineSensorController::calibrateSensors() {
   lineSensors.calibrate();
 }
 
+String LineSensorController::determineLineColor() {
+  String perceivedLineColors[5];
+  String consensusColor = "";
+
+  for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
+    if (lineSensorValues[i] > LINE_VALUE_GREY) {
+      perceivedLineColors[i] = "Black";
+    } else if (lineSensorValues[i] > LINE_VALUE_BROWN) {
+      perceivedLineColors[i] = "Grey";
+    } else if (lineSensorValues[i] > LINE_VALUE_GREEN) {
+      perceivedLineColors[i] = "Brown";
+    } else if (lineSensorValues[i] > LINE_VALUE_EMPTY) {
+      perceivedLineColors[i] = "Green";
+    } else {
+      //Ignore the whitespace
+      perceivedLineColors[i] = "Empty";
+    }
+  }
+
+  for (int i = 0; i < NUMBER_OF_SENSORS; i++) {
+    if (lineSensorValues[i] > LINE_VALUE_EMPTY && lineSensorValues[i] < LINE_VALUE_GREY) {
+      consensusColor = "Green";
+    } else if (lineSensorValues[i] > LINE_VALUE_GREY) {
+      consensusColor = "Black";
+      break;
+    }
+  }
+
+  return consensusColor;
+}
+
 /**
   @brief Leest de sensorwaarden van de lijnsensoren.
   Deze functie roept de readCalibrated-functie aan van het lineSensors-object om de sensorwaarden van de lijnsensoren te lezen.

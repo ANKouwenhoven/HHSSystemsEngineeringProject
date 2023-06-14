@@ -20,6 +20,7 @@ void IOController::init() {
   @param lineSensorValues Een array met de sensorwaarden van de lijnsensoren.
 */
 void IOController::printToSerial(int lineSensorValues[]) {
+  if (!sendRawInfo) return;
   for (int i = 0; i < 5; i++) {
     printInFormat(i + 1, lineSensorValues[i]);
   }
@@ -52,6 +53,7 @@ void IOController::printInFormat(int sensorNumber, int value) {
   @param tE Drempelwaarde voor het symbool "." (laagste waarde).
 */
 void IOController::printAsVisual(int lineSensorValues[], int tG, int tB, int tGr, int tE) {
+  if (!sendInfoVisual) return;
   static int lastReportTime = 0;
   if ((int)(millis() - lastReportTime) >= 10) {
     lastReportTime = millis();
@@ -87,6 +89,7 @@ void IOController::printAsVisual(int lineSensorValues[], int tG, int tB, int tGr
   @param tE Drempelwaarde voor de kleur "Green" (laagste waarde).
 */
 void IOController::printPerceivedColors(int lineSensorValues[], int tG, int tB, int tGr, int tE) {
+  if (!sendColorInfo) return;
   String perceivedLineColors[5];
 
   for (int i = 0; i < 5; i++) {
@@ -122,7 +125,7 @@ void IOController::printPerceivedColors(int lineSensorValues[], int tG, int tB, 
   @param message de inhoud van het bericht
 */
 void IOController::printDebugMessage(String message) {
-  Serial.println(message);
+  Serial1.println(message);
 }
 
 /**

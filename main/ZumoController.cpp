@@ -21,17 +21,20 @@ void ZumoController::zumoSetup() {
   calibrateSensors();
   Serial1.println("All done!");
   buttonA.waitForButton();
-  motors.maxSpeed = 100;
+  motors.maxSpeed = 200;
 }
 
 /**
   Hoofdloop van de Zumo
 */
 void ZumoController::zumoLoop() {
-  // delay(1);
   int position = lineSensors.readLine();
-  io.printAsVisual(lineSensors.readValues(), 500, 330, 200, 80);
-  motors.driveOnLine(position);
+  int values = lineSensors.readValues();
+  io.printAsVisual(values, 500, 330, 200, 80);
+  io.printToSerial(values);
+  io.printPerceivedColors(values, 500, 330, 200, 80);
+  io.readAndProcessInput();
+  motors.driveOnLine(position, lineSensors.determineLineColor());
 }
 
 /**
@@ -50,7 +53,7 @@ void ZumoController::calibrateSensors() {
   delay(1000);
 
   for(uint16_t i = 0; i < 120; i++) {
-    delay(10);
+    delay(2);
     if (i > 30 && i <= 90) {
       motors.rotate(true);
     }
