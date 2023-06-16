@@ -14,6 +14,9 @@ LineSensorController::LineSensorController(): useEmitters(true) {
 
 LineSensorController::~LineSensorController() {}
 
+/**
+  Initialiseert de linesensors.
+*/
 void LineSensorController::init() {
   lineSensors.initFiveSensors();
 }
@@ -27,6 +30,9 @@ void LineSensorController::calibrateSensors() {
   lineSensors.calibrate();
 }
 
+/**
+  Bepaalt de waarschijnlijke kleur van de lijn dmv de gemeten waarden.
+*/
 String LineSensorController::determineLineColor() {
   String perceivedLineColors[5];
   String consensusColor = "";

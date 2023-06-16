@@ -16,6 +16,7 @@ MotorController::~MotorController() {}
   Vervolgens wordt het snelheidsverschil (speedDifference) bepaald op basis van de fout en de vorige fout (lastError).
   De snelheden van de linker- en rechtermotor worden aangepast op basis van het maximale snelheidsverschil (maxSpeed) en het berekende snelheidsverschil.
   @param position De huidige positie van de lijn.
+  @param color De vernomen kleur van de lijn.
 */
 void MotorController::driveOnLine(int position, String color) {
   int error = position - 2000;

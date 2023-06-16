@@ -8,10 +8,12 @@ IOController::IOController(bool o1, bool o2, bool o3, bool o4, bool o5): sendRaw
 
 IOController::~IOController() {}
 
+/**
+  Initialiseert de Serial poorten.
+*/
 void IOController::init() {
   Serial1.begin(9600);
   Serial.begin(9600);
-  //while (!Serial) {}
 }
 
 /**
